@@ -4,7 +4,12 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
-    @cities = City.all
+
+    @q = City.ransack(params[:q])
+    @cities = @q.result.page(params[:page]).per(5)
+
+    #@cities = City.order("city_descrip").page(params[:page]).per(5)
+
   end
 
   # GET /cities/1

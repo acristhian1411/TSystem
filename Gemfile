@@ -11,10 +11,15 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 # Bootstrap 4
 gem 'bootstrap', '~> 4.4.1'
+
+#iconos
 gem 'font_awesome5_rails'
 # Poper_js
 gem 'popper_js', '~> 1.16'
-
+#paginacion
+gem 'kaminari'
+#busqueda
+gem 'ransack', github: 'activerecord-hackery/ransack'
 # Jquery-rails
 gem 'jquery-rails', '~> 4.3.5'
 # Use SCSS for stylesheets

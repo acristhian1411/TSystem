@@ -2,6 +2,13 @@
 
 <h1>Ciudades</h1>
 
+<%= search_form_for @q do |f| %>
+
+  <%= f.search_field :city_descrip_cont, placeholder:'Buscar', class:"form-control" %>
+<%= link_to "Limpiar", request.path, class: "btn btn-default" %>
+  <%= f.submit 'Buscar', class: 'btn btn-primary' %>
+<% end %>
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -21,5 +28,5 @@
     <% end %>
   </tbody>
 </table>
-
+    <%= paginate @cities, window: 2 %>
 <br>
