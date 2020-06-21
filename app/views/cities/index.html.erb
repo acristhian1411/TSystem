@@ -2,11 +2,11 @@
 
 <h1>Ciudades</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Descripcion</th>
-      <th colspan="3"><%= link_to 'Nueva Ciudad', new_city_path %></th>
+      <th scope="col">Descripcion</th>
+      <th colspan="3"><%= fa_icon "plus-square", class: 'mx-2', size: '1x' %><%= link_to 'Nueva Ciudad', new_city_path %></th>
     </tr>
   </thead>
 
@@ -14,9 +14,9 @@
     <% @cities.each do |city| %>
       <tr>
         <td><%= city.city_descrip %></td>
-        <td><%= link_to 'Mostrar', city %></td>
-        <td><%= link_to 'Editar', edit_city_path(city) %></td>
-        <td><%= link_to 'Eliminar', city, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+        <td><%= fa_icon "eye", class: 'mx-2', size: '1x' %><%= link_to 'Mostrar', city %></td>
+        <td><%= fa_icon "pen", class: 'mx-2', size: '1x' %><%= link_to 'Editar', edit_city_path(city) %></td>
+        <td><%= fa_icon "trash-alt", class: 'mx-2', size: '1x' %><%= link_to 'Eliminar', city, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>

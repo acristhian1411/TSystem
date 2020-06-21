@@ -97,15 +97,21 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["city_id"], name: "city_pk", unique: true
   end
 
-  create_table "clients", primary_key: "person_id", id: :integer, default: nil, force: :cascade do |t|
-    t.integer "wplace_id"
-    t.string "direc_cliente", limit: 255, null: false
-    t.float "credit_limit", null: false
+  create_table "clients", id: false, force: :cascade do |t|
+    t.integer "person_id", default: -> { "nextval('person_person_id_seq'::regclass)" }, null: false
+    t.integer "district_id"
+    t.string "nombre", limit: 100, null: false
+    t.string "last_name", limit: 100, null: false
+    t.string "cedula", limit: 10, null: false
+    t.string "ruc", limit: 12, null: false
+    t.string "home_address", limit: 255, null: false
+    t.string "business_name", limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.index ["person_id"], name: "client_fk_client"
-    t.index ["person_id"], name: "client_pk", unique: true
+    t.integer "wplace_id"
+    t.string "direc_cliente", limit: 255, null: false
+    t.float "credit_limit", null: false
     t.index ["wplace_id"], name: "wplace_fk_client"
   end
 
@@ -169,22 +175,25 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["district_id"], name: "district_pk", unique: true
   end
 
-  create_table "employees", primary_key: "person_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "employees", id: false, force: :cascade do |t|
+    t.integer "person_id", default: -> { "nextval('person_person_id_seq'::regclass)" }, null: false
+    t.integer "district_id"
+    t.string "nombre", limit: 100, null: false
+    t.string "last_name", limit: 100, null: false
+    t.string "cedula", limit: 10, null: false
+    t.string "ruc", limit: 12, null: false
+    t.string "home_address", limit: 255, null: false
+    t.string "business_name", limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
     t.integer "appoin_id"
-    t.integer "user_id"
     t.integer "branch_id"
     t.date "person_startdate"
     t.boolean "person_status"
     t.string "person_observation", limit: 255
     t.float "person_salary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.index ["appoin_id"], name: "apointment_fk_employees"
-    t.index ["branch_id"], name: "branch_fk_employees"
-    t.index ["person_id"], name: "employees_fk"
-    t.index ["person_id"], name: "employees_pk", unique: true
-    t.index ["user_id"], name: "user_fk_employees"
   end
 
   create_table "movement_type", primary_key: "m_type_id", id: :serial, force: :cascade do |t|
@@ -281,14 +290,20 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["sub_cat_id"], name: "sub_cat_prod_fk"
   end
 
-  create_table "provider", primary_key: "person_id", id: :integer, default: nil, force: :cascade do |t|
-    t.boolean "prov_activo", null: false
-    t.string "obs", limit: 255
+  create_table "provider", id: false, force: :cascade do |t|
+    t.integer "person_id", default: -> { "nextval('person_person_id_seq'::regclass)" }, null: false
+    t.integer "district_id"
+    t.string "nombre", limit: 100, null: false
+    t.string "last_name", limit: 100, null: false
+    t.string "cedula", limit: 10, null: false
+    t.string "ruc", limit: 12, null: false
+    t.string "home_address", limit: 255, null: false
+    t.string "business_name", limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.index ["person_id"], name: "person_id_fk_provider"
-    t.index ["person_id"], name: "provider_pk", unique: true
+    t.boolean "prov_activo", null: false
+    t.string "obs", limit: 255
   end
 
   create_table "roles", primary_key: "role_id", id: :serial, force: :cascade do |t|
@@ -409,20 +424,11 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "audit", "\"USER\"", column: "user_id", primary_key: "user_id", name: "fk_audit_reference_user", on_update: :restrict, on_delete: :restrict
   add_foreign_key "buy_details", "buys", primary_key: "buy_id", name: "fk_buy_deta_relations_buys", on_update: :restrict, on_delete: :restrict
   add_foreign_key "buy_details", "product", primary_key: "product_id", name: "fk_buy_deta_relations_product", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "buys", "provider", column: "person_id", primary_key: "person_id", name: "fk_buys_relations_provider", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "clients", "person", primary_key: "person_id", name: "fk_clients_reference_person", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "clients", "workplaces", column: "wplace_id", primary_key: "wplace_id", name: "fk_clients_reference_workplac", on_update: :restrict, on_delete: :restrict
   add_foreign_key "contact_person", "contact_type", column: "ctype_id", primary_key: "ctype_id", name: "fk_contact__reference_contact_", on_update: :restrict, on_delete: :restrict
   add_foreign_key "contact_person", "person", primary_key: "person_id", name: "fk_contact__reference_person", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "credit", "employees", column: "petitioner_id", primary_key: "person_id", name: "fk_credit_reference_petitioner", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "credit", "employees", column: "supervisor_id", primary_key: "person_id", name: "fk_credit_reference_supervisor", on_update: :restrict, on_delete: :restrict
   add_foreign_key "credit", "person", primary_key: "person_id", name: "fk_credit_reference_person", on_update: :restrict, on_delete: :restrict
   add_foreign_key "credit_fee", "credit", primary_key: "credit_id", name: "fk_credit_f_relations_credit", on_update: :restrict, on_delete: :restrict
   add_foreign_key "districts", "city", primary_key: "city_id", name: "fk_district_relations_city", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "employees", "\"USER\"", column: "user_id", primary_key: "user_id", name: "fk_employee_reference_user", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "employees", "appointments", column: "appoin_id", primary_key: "appoin_id", name: "fk_employee_reference_appointm", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "employees", "branch", primary_key: "branch_id", name: "fk_employee_reference_branch", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "employees", "person", primary_key: "person_id", name: "fk_employee_reference_person", on_update: :restrict, on_delete: :restrict
   add_foreign_key "permits", "roles", primary_key: "role_id", name: "fk_permits_reference_roles", on_update: :restrict, on_delete: :restrict
   add_foreign_key "permits_x_user", "\"USER\"", column: "user_id", primary_key: "user_id", name: "fk_permits__reference_user", on_update: :restrict, on_delete: :restrict
   add_foreign_key "permits_x_user", "permits", column: "permits_id", primary_key: "permits_id", name: "fk_permits__reference_permits", on_update: :restrict, on_delete: :restrict
@@ -432,12 +438,8 @@ ActiveRecord::Schema.define(version: 0) do
   add_foreign_key "prod_transfers", "branch", column: "br_destination_id", primary_key: "branch_id", name: "fk_prod_tra_reference_destino", on_update: :restrict, on_delete: :restrict
   add_foreign_key "prod_transfers", "branch", column: "br_origin_id", primary_key: "branch_id", name: "fk_prod_tra_reference_origen", on_update: :restrict, on_delete: :restrict
   add_foreign_key "product", "brand", primary_key: "brand_id", name: "fk_product_reference_brand", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "product", "provider", column: "person_id", primary_key: "person_id", name: "fk_product_relations_provider", on_update: :restrict, on_delete: :restrict
   add_foreign_key "product", "sub_category", column: "sub_cat_id", primary_key: "sub_cat_id", name: "fk_product_reference_sub_cate", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "provider", "person", primary_key: "person_id", name: "fk_provider_reference_person", on_update: :restrict, on_delete: :restrict
   add_foreign_key "sales", "branch", primary_key: "branch_id", name: "fk_sales_relations_branch", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "sales", "clients", column: "person_id", primary_key: "person_id", name: "fk_sales_reference_clients", on_update: :restrict, on_delete: :restrict
-  add_foreign_key "sales", "employees", column: "emp_person_id", primary_key: "person_id", name: "fk_sales_reference_employee", on_update: :restrict, on_delete: :restrict
   add_foreign_key "sales_details", "product", primary_key: "product_id", name: "fk_sales_de_relations_product", on_update: :restrict, on_delete: :restrict
   add_foreign_key "sales_details", "sales", column: "sales_id", primary_key: "sales_id", name: "fk_sales_de_relations_sales", on_update: :restrict, on_delete: :restrict
   add_foreign_key "stock", "branch", primary_key: "branch_id", name: "fk_stock_reference_branch", on_update: :restrict, on_delete: :restrict
