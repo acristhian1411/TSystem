@@ -11,7 +11,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 # Bootstrap 4
 gem 'bootstrap', '~> 4.4.1'
-
+#softdelete
+gem "paranoia"
 #iconos
 gem 'font_awesome5_rails'
 # Poper_js

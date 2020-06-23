@@ -21,12 +21,33 @@
     <% @cities.each do |city| %>
       <tr>
         <td><%= city.city_descrip %></td>
-        <td><%= fa_icon "eye", class: 'mx-2', size: '1x' %><%= link_to 'Mostrar', city %></td>
+         <td><%= fa_icon "eye", class: 'mx-2', size: '1x' %><%= link_to 'Mostrar', city %></td>
         <td><%= fa_icon "pen", class: 'mx-2', size: '1x' %><%= link_to 'Editar', edit_city_path(city) %></td>
         <td><%= fa_icon "trash-alt", class: 'mx-2', size: '1x' %><%= link_to 'Eliminar', city, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<div class="pagination justify-content-center">Mostrar
+
+<%= form_tag cities_path, method: :get, id: 'limit_form', remote: true do %>
+   <%= select_tag :limit, options_for_select([5, 10, 15, 20],
+      selected: params[:limit] || 10) %>
+<% end %>Ciudades por pagina</div>
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
     <%= paginate @cities, window: 2 %>
+
+  </ul>
+</nav>
 <br>
+<script type="text/javascript" >
+
+  $(function(){
+    $('#limit').change(
+      function() {
+       $('#limit_form').submit();
+      });
+  });
+
+</script>

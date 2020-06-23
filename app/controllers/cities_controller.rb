@@ -6,7 +6,12 @@ class CitiesController < ApplicationController
   def index
 
     @q = City.ransack(params[:q])
-    @cities = @q.result.page(params[:page]).per(5)
+    if params[:limit]
+      @cities = @q.result.page(params[:page]).per(params[:limit])
+
+   else
+     @cities = @q.result.page(params[:page]).per(10)
+   end
 
     #@cities = City.order("city_descrip").page(params[:page]).per(5)
 
