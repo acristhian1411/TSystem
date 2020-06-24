@@ -1,0 +1,29 @@
+<%= form_with(model: district, local: true) do |form| %>
+  <% if district.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(district.errors.count, "error") %> prohibited this district from being saved:</h2>
+
+      <ul>
+        <% district.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">Ciudad</label>
+
+    <%# form.select(:city_id, City.all.collect {|a| [a.city_descrip, a.city_id]} , class:"form-control form-control-lg") %>
+    <%= form.select 'city_id', options_for_select(@city.collect{ |u| [u.city_descrip, u.city_id] }),  include_blank: "Seleccione una ciudad" %>
+</div>
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">Descripcion</label>
+    <%= form.text_field :district_descrip, class:"form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Guardar', class:"btn btn-primary" %>
+  </div>
+<% end %>

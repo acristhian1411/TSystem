@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Barrio</h1>
+<%= search_form_for @q do |f| %>
+
+  <%= f.search_field :district_descrip_cont, placeholder:'Buscar', class:"form-control" %>
+<%= link_to "Limpiar", request.path, class: "btn btn-default" %>
+  <%= f.submit 'Buscar', class: 'btn btn-primary' %>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"><%= sort_link @q,  :city_city_descrip, 'Ciudad' %></th>
+      <th scope="col"><%= sort_link @q, :district_descrip, "Descripcion"%></th>
+      <th colspan="3"><%= fa_icon "plus-square", class: 'mx-2', size: '1x' %><%= link_to 'Nuevo Barrio', new_district_path %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @districts.each do |district| %>
+      <tr>
+        <td><%= district.city.city_descrip %></td>
+        <td><%= district.district_descrip %></td>
+        <td><%= fa_icon "eye", class: 'mx-2', size: '1x' %><%= link_to 'Mostrar', district %></td>
+        <td><%= fa_icon "pen", class: 'mx-2', size: '1x' %><%= link_to 'Editar', edit_district_path(district) %></td>
+        <td><%= fa_icon "trash-alt", class: 'mx-2', size: '1x' %><%= link_to 'Eliminar', district, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pagination justify-content-center">Mostrar
+
+<%= form_tag districts_path, method: :get, id: 'limit_form', remote: true do %>
+   <%= select_tag :limit, options_for_select([5, 10, 15, 20],
+      selected: params[:limit] || 10) %>
+<% end %>Barrios por pagina</div>
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+    <%= paginate @districts, window: 2 %>
+
+  </ul>
+</nav>
+<br>
+<script type="text/javascript" >
+
+  $(function(){
+    $('#limit').change(
+      function() {
+       $('#limit_form').submit();
+      });
+  });
+
+</script>

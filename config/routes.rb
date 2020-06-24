@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :districts
   get 'home/home'
   root 'home#home'
   resources :cities

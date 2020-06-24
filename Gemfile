@@ -13,6 +13,8 @@ gem 'puma', '~> 4.1'
 gem 'bootstrap', '~> 4.4.1'
 #softdelete
 gem "paranoia"
+#select personalizado
+gem "select2-rails"
 #iconos
 gem 'font_awesome5_rails'
 # Poper_js
