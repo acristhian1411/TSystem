@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @category.cat_descript %>
+</p>
+
+<%= link_to 'Editar', edit_category_path(@category) %> |
+<%= link_to 'Atras', categories_path %>
