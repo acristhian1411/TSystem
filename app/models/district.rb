@@ -1,6 +1,6 @@
 class District < ApplicationRecord
-  belongs_to :city
   acts_as_paranoid
+  belongs_to :city
   validates :district_descrip, presence: true
 
 end

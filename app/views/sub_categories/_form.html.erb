@@ -1,0 +1,30 @@
+<%= form_with(model: sub_category, local: true) do |form| %>
+  <% if sub_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sub_category.errors.count, "error") %> prohibited this sub_category from being saved:</h2>
+
+      <ul>
+        <% sub_category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">Categoria</label>
+<%= form.collection_select :cat_id, Category.all , :cat_id,:cat_descript, include_blank: "Seleccione una Categoria",  class: "chosen-select"  %>
+    <%# form.select 'cat_id', options_for_select(Category.all.collect{ |u| [u.cat_descript, u.cat_id] }),  include_blank: "Seleccione una Categoria",  class: 'chosen-select'   %>
+
+</div>
+
+<div class="form-group">
+  <label for="formGroupExampleInput">Descripcion</label>
+  <%= form.text_field :sub_cat_descrip, class:"form-control" %>
+</div>
+
+
+  <div class="actions">
+    <%= form.submit 'Guardar', class:"btn btn-primary" %>
+  </div>
+<% end %>

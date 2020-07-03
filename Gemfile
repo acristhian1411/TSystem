@@ -14,7 +14,7 @@ gem 'bootstrap', '~> 4.4.1'
 #softdelete
 gem "paranoia"
 #select personalizado
-gem "select2-rails"
+gem 'chosen-rails'
 #iconos
 gem 'font_awesome5_rails'
 # Poper_js

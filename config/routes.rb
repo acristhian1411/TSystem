@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :brands
+  resources :sub_categories
   resources :categories
   resources :districts
   get 'home/home'
