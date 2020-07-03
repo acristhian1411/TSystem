@@ -1,12 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Brands</h1>
+<h1>Marcas</h1>
+<%= search_form_for @q do |f| %>
 
-<table>
+  <%= f.search_field :brand_descrip_cont, placeholder:'Buscar', class:"form-control" %>
+<%= link_to "Limpiar", request.path, class: "btn btn-default" %>
+  <%= f.submit 'Buscar', class: 'btn btn-primary' %>
+<% end %>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Brand descrip</th>
-      <th colspan="3"></th>
+      <th scope="col"><%= sort_link @q, :brand_descrip, "Descripcion"%></th>
+      <th colspan="3"><%= fa_icon "plus-square", class: 'mx-2', size: '1x' %><%= link_to 'Nueva Marca', new_brand_path %></th>
     </tr>
   </thead>
 
@@ -14,14 +20,33 @@
     <% @brands.each do |brand| %>
       <tr>
         <td><%= brand.brand_descrip %></td>
-        <td><%= link_to 'Show', brand %></td>
-        <td><%= link_to 'Edit', edit_brand_path(brand) %></td>
-        <td><%= link_to 'Destroy', brand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= fa_icon "eye", class: 'mx-2', size: '1x' %><%= link_to 'Mostrar', brand %></td>
+        <td><%= fa_icon "pen", class: 'mx-2', size: '1x' %><%= link_to 'Editar', edit_brand_path(brand) %></td>
+        <td><%= fa_icon "trash-alt", class: 'mx-2', size: '1x' %><%= link_to 'Eliminar', brand, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<div class="pagination justify-content-center">Mostrar
 
+<%= form_tag brands_path, method: :get, id: 'limit_form', remote: true do %>
+   <%= select_tag :limit, options_for_select([5, 10, 15, 20],
+      selected: params[:limit] || 10) %>
+<% end %>Marcas por pagina</div>
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+    <%= paginate @brands %>
+
+  </ul>
+</nav>
 <br>
+<script type="text/javascript" >
 
-<%= link_to 'New Brand', new_brand_path %>
+  $(function(){
+    $('#limit').change(
+      function() {
+       $('#limit_form').submit();
+      });
+  });
+
+</script>

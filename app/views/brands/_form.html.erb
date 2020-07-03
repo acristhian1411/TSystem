@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :brand_descrip %>
-    <%= form.text_field :brand_descrip %>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Descripcion</label>
+  <%= form.text_field :brand_descrip, class:"form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Guardar', class:"btn btn-primary" %>
   </div>
 <% end %>

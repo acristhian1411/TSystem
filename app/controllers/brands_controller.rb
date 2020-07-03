@@ -4,7 +4,13 @@ class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.json
   def index
-    @brands = Brand.all
+    @q = Brand.ransack(params[:q])
+    if params[:limit]
+      @brands = @q.result.page(params[:page]).per(params[:limit])
+
+   else
+     @brands = @q.result.page(params[:page]).per(10)
+   end
   end
 
   # GET /brands/1
