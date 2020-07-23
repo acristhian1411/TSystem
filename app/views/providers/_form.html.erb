@@ -11,40 +11,47 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :districts_id %>
-    <%= form.text_field :districts_id %>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Barrios</label>
+    <%= form.collection_select :district_id, District.all , :district_id,:district_descrip, include_blank: "Seleccione un Barrio",  class: "chosen-select"  %>
+
+    <%# form.select 'district_id', options_for_select(@district.collect{ |u| [u.district_descrip, u.district_id] }),  include_blank: "Seleccione un barrio",  class: 'chosen-select'   %>
+
+</div>
+
+
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">Nombre</label>
+    <%= form.text_field :nombre, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :nombre %>
-    <%= form.text_field :nombre %>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Apellido</label>
+    <%= form.text_field :last_name, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Razon Social</label>
+    <%= form.text_field :business_name, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :cedula %>
-    <%= form.text_field :cedula %>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Nro. de Cedula</label>
+    <%= form.text_field :cedula, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :ruc %>
-    <%= form.text_field :ruc %>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Nro. de Ruc</label>
+    <%= form.text_field :ruc, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :home_address %>
-    <%= form.text_field :home_address %>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Direccion</label>
+    <%= form.text_field :home_address, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :business_name %>
-    <%= form.text_field :business_name %>
-  </div>
+
 
   <div class="field">
     <%= form.label :prov_activo %>
@@ -53,10 +60,10 @@
 
   <div class="field">
     <%= form.label :obs %>
-    <%= form.text_field :obs %>
+    <%= form.text_field :obs, class:"form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Guardar', class:"btn btn-primary" %>
   </div>
 <% end %>

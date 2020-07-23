@@ -13,34 +13,24 @@
 <table class="table table-hover">  <thead>
     <thead>
     <tr>
-      <th>Districts</th>
       <th scope="col"><%= sort_link @q, :nombre, "Nombre"%></th>
-      <th>Lastname</th>
-      <th>Cedula</th>
-      <th>Ruc</th>
-      <th>Home address</th>
-      <th>Business name</th>
-      <th>Prov activo</th>
-      <th>Obs</th>
-      <th colspan="3"><%= link_to 'Nuevo Proveedor', new_provider_path %></th>
+      <th scope="col"><%= sort_link @q, :last_name, "Apellido"%></th></th>
+      <th scope="col"><%= sort_link @q, :cedula, "cedula"%></th></th>
+      <th scope="col"><%= sort_link @q, :ruc, "Ruc"%></th></th>
+      <th colspan="3"><%= fa_icon "plus-square", class: 'mx-2', size: '1x' %><%= link_to 'Nuevo Proveedor', new_provider_path %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @providers.each do |provider| %>
       <tr>
-        <td><%= provider.district_id %></td>
         <td><%= provider.nombre %></td>
         <td><%= provider.last_name %></td>
         <td><%= provider.cedula %></td>
         <td><%= provider.ruc %></td>
-        <td><%= provider.home_address %></td>
-        <td><%= provider.business_name %></td>
-        <td><%= provider.prov_activo %></td>
-        <td><%= provider.obs %></td>
-        <td><%= link_to 'Show', provider %></td>
-        <td><%= link_to 'Edit', edit_provider_path(provider) %></td>
-        <td><%= link_to 'Destroy', provider, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= fa_icon "eye", class: 'mx-2', size: '1x' %><%= link_to 'Mostrar', provider %></td>
+        <td><%= fa_icon "pen", class: 'mx-2', size: '1x' %><%= link_to 'Editar', edit_provider_path(provider) %></td>
+        <td><%= fa_icon "trash-alt", class: 'mx-2', size: '1x' %><%= link_to 'Eliminar', provider, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>

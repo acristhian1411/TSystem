@@ -22,10 +22,13 @@ class ProvidersController < ApplicationController
   # GET /providers/new
   def new
     @provider = Provider.new
+    @district = District.all
+    
   end
 
   # GET /providers/1/edit
   def edit
+    @district = District.all
   end
 
   # POST /providers
